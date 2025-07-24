@@ -6,25 +6,29 @@ const BASE_URL =
   "https://www.dhlottery.co.kr/common.do?method=getLottoNumber&drwNo=";
 const latestDrawNo = 1181;
 
-// 랜덤 유틸 그대로
+// 1) 배열을 랜덤 섞는 유틸
 function shuffle(arr) {
-  /* ... */
-}
-function pickOne(arr) {
-  /* ... */
+  return arr
+    .map((v) => ({ v, r: Math.random() }))
+    .sort((a, b) => a.r - b.r)
+    .map((o) => o.v);
 }
 
-// 1) 원본 당첨번호만 캐시
+// 2) 배열에서 랜덤 한 개 뽑기
+function pickOne(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
+// 3) 당첨번호 6개월분만 캐시
 let drawCache = null;
 let drawCacheTime = 0;
 const DRAW_TTL = 1000 * 60 * 30; // 30분
 
 async function fetchLottoData() {
-  // 캐시가 유효하면 재활용
   if (drawCache && Date.now() - drawCacheTime < DRAW_TTL) {
     return drawCache;
   }
-  // 아니면 병렬로 새로 가져와서 캐시
+
   const promises = Array.from({ length: RECENT_COUNT }, (_, idx) => {
     const no = latestDrawNo - idx;
     return axios
@@ -36,13 +40,14 @@ async function fetchLottoData() {
       )
       .catch(() => []);
   });
+
   const draws = await Promise.all(promises);
   drawCache = draws;
   drawCacheTime = Date.now();
   return draws;
 }
 
-// 2) 콤비네이션은 매번 새로 생성
+// 4) 매번 새로 조합 생성
 async function getLottoCombinations() {
   const draws = await fetchLottoData();
 
@@ -51,6 +56,8 @@ async function getLottoCombinations() {
   draws.flat().forEach((n) => {
     if (n) freq[n] = (freq[n] || 0) + 1;
   });
+
+  // 3~4회 등장 번호 풀
   const pool = Object.entries(freq)
     .filter(([, c]) => c >= 3 && c <= 4)
     .map(([n]) => Number(n));
@@ -58,12 +65,12 @@ async function getLottoCombinations() {
   const lastWeek = draws[0] || [];
   const chosenLast = shuffle(lastWeek).slice(0, 5);
 
-  // 5개 콤비네이션 생성
+  // 5개 조합 생성
   return chosenLast.map((baseNum) => {
     const combo = [baseNum];
     const avail = pool.filter((n) => n !== baseNum);
 
-    // 연속·근접 묶음
+    // 연속·근접 묶음 2~3개
     const size = Math.floor(Math.random() * 2) + 2;
     const start = pickOne(avail);
     const group = [start];
@@ -75,7 +82,7 @@ async function getLottoCombinations() {
     }
     combo.push(...group);
 
-    // 남은 숫자 채우기
+    // 나머지 숫자 채우기
     let rest = avail.filter((n) => !group.includes(n));
     while (combo.length < 6 && rest.length) {
       const p = pickOne(rest);

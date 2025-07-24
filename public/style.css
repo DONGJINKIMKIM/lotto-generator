@@ -1,0 +1,183 @@
+/* --- 전역 --- */
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  font-family: "Noto Sans KR", sans-serif;
+  background-color: #ffffff;
+  /* 3가지 색 공 이미지로 타일 배경 */
+  background-image: url("images/ball-red.png"), url("images/ball-blue.png"),
+    url("images/ball-green.png");
+  background-repeat: repeat, repeat, repeat;
+  background-size: 100px 100px, 100px 100px, 100px 100px;
+  background-position: 0 0, 50px 50px, 25px 75px;
+  height: 100vh;
+}
+
+/* --- 카드 중앙 배치 --- */
+.card-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+.card {
+  background: #fefefe;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 360px;
+  text-align: center;
+  border: 3px solid rgba(0, 0, 0, 0.347);
+  border-radius: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.184), 0 8px 16px rgba(0, 0, 0, 0.171);
+}
+
+/* --- 타이포그래피 --- */
+.card h1 {
+  margin: 0 0 0.5rem;
+  font-size: 1.5rem;
+  color: #333;
+}
+.card .description {
+  margin: 0 0 1.5rem;
+  color: #666;
+  font-size: 1rem;
+}
+
+/* --- 버튼 스타일 --- */
+#generateBtn {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #222;
+  background: #5fa1f8;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+#generateBtn:hover {
+  background: #f45959;
+}
+
+/* --- 결과 영역 --- */
+#result {
+  margin-top: 1.5rem;
+  text-align: left;
+}
+.combo-line {
+  margin: 0.5rem 0;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+/* style.css */
+
+body {
+  position: relative;
+  z-index: 0; /* pseudo-element가 뒤로 가도록 설정 */
+  margin: 0;
+  background-color: #fff; /* 배경 기본색 */
+  /* 기존 background-image 속성 제거 */
+}
+
+/* 패턴만 반투명하게 깔기 */
+body::before {
+  content: "";
+  position: fixed; /* 스크롤되어도 고정 */
+  top: 0;
+  left: 0; /* 화면 전체를 덮도록 */
+  width: 100%;
+  height: 100%;
+  background-image: url("images/sparse-bokjumeoni-pattern.png");
+  background-repeat: repeat;
+  background-size: 600px 600px; /* 필요에 따라 조절 */
+  opacity: 0.2; /* 투명도 50% */
+  z-index: -1; /* 콘텐츠보다 뒤에 표시 */
+}
+/* 카드 컨테이너는 세로 정렬 유지 */
+.card-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 0;
+}
+
+/* 카드 스타일 (예시) */
+.card {
+  width: 90%;
+  max-width: 360px;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  text-align: center;
+}
+
+/* 공식 영역: 카드와 같은 너비, 바로 아래에 붙음 */
+.formula {
+  width: 90%;
+  max-width: 450px;
+  margin-top: 0.1rem; /* 카드와의 간격 */
+  padding: 0.1rem;
+  border-top: 1px solid #0c0b0b00;
+  background: #ffffff37;
+}
+
+.formula h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.1rem;
+  padding-left: 3rem;
+  color: #004085;
+}
+
+.formula ul {
+  margin: 0;
+  padding-left: 4.3rem;
+}
+
+.formula li {
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+/* combo-line: 레이블과 공을 가로 정렬 */
+.combo-line {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: flex-start;
+  white-space: nowrap;
+  margin: 0.75rem 0;
+}
+
+/* "조합 1:" 레이블 스타일 */
+.combo-label {
+  font-weight: 1000;
+  margin-right: 0.6rem;
+  font-size: 1rem;
+  color: #000000;
+}
+
+/* lotto-num: 기존 공 스타일이 이미 정의돼 있다면 그대로 쓰세요 */
+/* 예시 (없다면 추가): */
+.lotto-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  height: 35px;
+  margin-right: 0.5rem;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 2px solid #000000;
+  color: #000000;
+  font-weight: 700;
+  font-size: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}

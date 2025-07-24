@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+  <title>로또 당첨번호 조합기</title>
+  <!-- Google Font -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="card-container">
+
+      <div class="card">
+      <h1  class="title-box" >로또 당첨번호 조합기</h1>
+      <p class="lead underlined">믿을 수 있는 공식으로 만든 로또번호 조합</p>
+      <button id="generateBtn">생성하기</button>
+      <div id="result"></div>
+    </div>
+
+     <div class="formula">
+      <h3>사용되는 공식</h3>
+      <ul>
+        <li>지난주 1등 당첨번호를 각 조합에 1개씩 포함</li>
+        <li>최근 6개월간 출현 횟수 3~4회인 번호만 필터링</li>
+        <li>연속법칙 이용(연속 or 차이가 3 이하인 숫자 2~3개 묶음)</li>
+      </ul>
+    </div>
+  </div>
+
+  
+  <script src="script.js"></script>
+</body>
+</html>

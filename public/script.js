@@ -3,7 +3,7 @@ const resultDiv = document.getElementById("result");
 
 btn.addEventListener("click", async () => {
   btn.disabled = true;
-  btn.textContent = "공식 분석 중...";
+  btn.textContent = "공식 분석 중...(기다려 주세요)";
 
   try {
     const res = await fetch("/api/lotto");
